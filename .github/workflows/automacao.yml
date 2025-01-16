@@ -35,7 +35,7 @@ jobs:
 
       - name: Atualização de relatório
         run: |
-          poetry_VIRTUALENVS_PREFER_ACTIVE_PYTHON true
+          poetry_virtualenvs_prefer_active_python true
           poetry run  quarto render relatorio/relatorio.qmd
 
       - name: commit & push
