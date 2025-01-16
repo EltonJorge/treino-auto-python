@@ -1,0 +1,45 @@
+name: Automação de relatório/dashboard
+
+on:
+  push:
+    branches: ['main']
+  schedule:
+    - cron: '0 0 * * *'
+
+
+jobs:
+  Automacao:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name : clonar repositorio
+        uses: actions/checkout@v5
+
+      - name: instalar python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: instalar poetry 
+        uses: snok/install-poetry@v1
+        with:
+          version: 2.0.1
+
+      - name: instalar pacotes python
+        run : poetry install --no-root
+
+      - name: instalar Quarto
+        uses: quarto-dev/quarto-actions/setup@v2   
+        with:
+          version: 1.6.40
+
+      - name: Atualização de relatório
+        run: |
+          poetry config virtualenvs.prefer-active-python true
+          poetry run  quarto render relatorio/relatorio.qmd"
+
+      - name: commit & push
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Automação de relatorio/Dashboard
+              
