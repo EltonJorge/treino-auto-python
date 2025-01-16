@@ -13,7 +13,7 @@ jobs:
 
     steps:
       - name : clonar repositorio
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4
 
       - name: instalar python
         uses: actions/setup-python@v5
@@ -36,7 +36,7 @@ jobs:
       - name: Atualização de relatório
         run: |
           poetry config virtualenvs.prefer-active-python true
-          poetry run  quarto render relatorio/relatorio.qmd"
+          poetry run  quarto render relatorio/relatorio.qmd
 
       - name: commit & push
         uses: stefanzweifel/git-auto-commit-action@v5
